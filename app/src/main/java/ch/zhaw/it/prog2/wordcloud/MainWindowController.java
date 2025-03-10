@@ -23,12 +23,13 @@ public class MainWindowController {
 
     @FXML
     void addText(ActionEvent event) {
-
+        textHistory.appendText(textEntry.getText() + "\n");
+        textEntry.clear();
     }
 
     @FXML
     void clearTextEntry(ActionEvent event) {
-
+        textEntry.clear();
     }
 
 }
