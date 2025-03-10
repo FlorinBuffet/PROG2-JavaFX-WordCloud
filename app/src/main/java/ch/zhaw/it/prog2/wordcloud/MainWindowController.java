@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class MainWindowController {
+public class MainWindowController implements IsObserver{
 
     @FXML
     private Label labelTitle;
@@ -17,19 +17,28 @@ public class MainWindowController {
     @FXML
     private TextArea textHistory;
 
+    private WordModel model;
+
     public void initialize() {
+        model = App.getModel();
         labelTitle.textProperty().bind(textEntry.textProperty());
+        model.addListener(this);
     }
 
     @FXML
     void addText(ActionEvent event) {
-        textHistory.appendText(textEntry.getText() + "\n");
+        model.addWord(textEntry.getText());
         textEntry.clear();
     }
 
     @FXML
     void clearTextEntry(ActionEvent event) {
         textEntry.clear();
+    }
+
+    @Override
+    public void update() {
+        textHistory.setText(model.toString());
     }
 
 }
